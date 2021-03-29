@@ -109,6 +109,9 @@
     <string name="location">Location</string>
     <string name="app_name">Github User</string>
     <string name="company">Company</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="repository">Repository</string>
 </resources>
 
 

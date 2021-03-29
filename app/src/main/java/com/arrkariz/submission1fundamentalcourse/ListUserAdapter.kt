@@ -24,16 +24,16 @@ class ListUserAdapter(private val listUser: ArrayList<Userdata>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val Userdata = listUser[position]
+        val userData = listUser[position]
 
         Glide.with(holder.itemView.context)
-            .load(Userdata.photo)
+            .load(userData.photo)
             .apply(RequestOptions().override(55, 55))
             .into(holder.imgPhoto)
 
-        holder.tvName.text = Userdata.name
-        holder.tvUserName.text = Userdata.userName
-        holder.tvDetail.text = Userdata.location
+        holder.tvName.text = userData.name
+        holder.tvUserName.text = userData.userName
+        holder.tvDetail.text = userData.location
 
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
     }

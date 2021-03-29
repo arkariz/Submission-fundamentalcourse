@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -23,7 +22,7 @@
         android:text="@string/name"
         android:textAlignment="center"
         android:layout_marginTop="60dp"
-        android:textFontWeight="5"
+        tools:textFontWeight="5"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="205dp" />
@@ -72,13 +71,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginRight="50dp">
+            tools:layout_marginRight="50dp">
 
             <TextView
                 android:id="@+id/follower"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:text="10"
+                tools:text="10"
                 tools:layout_editor_absoluteX="60dp"
                 tools:layout_editor_absoluteY="304dp" />
 
@@ -86,14 +85,14 @@
                 android:id="@+id/follower_tag"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="Follower"
+                android:text="@string/follower"
                 tools:layout_editor_absoluteX="108dp"
                 tools:layout_editor_absoluteY="304dp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginLeft="50dp"
+            tools:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -102,7 +101,7 @@
                 android:id="@+id/following"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:text="10"
+                tools:text="10"
                 tools:layout_editor_absoluteX="243dp"
                 tools:layout_editor_absoluteY="301dp" />
 
@@ -110,7 +109,7 @@
                 android:id="@+id/following_tag"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="Following"
+                android:text="@string/following"
                 tools:layout_editor_absoluteX="287dp"
                 tools:layout_editor_absoluteY="301dp" />
 
@@ -126,7 +125,7 @@
             android:id="@+id/repository"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:text="10"
+            tools:text="10"
             tools:layout_editor_absoluteX="124dp"
             tools:layout_editor_absoluteY="349dp" />
 
@@ -134,14 +133,9 @@
             android:id="@+id/repository_tag"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:text="Repository"
+            android:text="@string/repository"
             tools:layout_editor_absoluteX="168dp"
             tools:layout_editor_absoluteY="349dp" />
     </LinearLayout>
-
-
-
-
-
 
 </LinearLayout>

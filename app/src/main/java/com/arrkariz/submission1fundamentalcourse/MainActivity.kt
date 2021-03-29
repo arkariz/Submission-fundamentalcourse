@@ -42,10 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         listUserAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Userdata) {
-                val user = data
-
                 val moveWithObjectIntent = Intent(this@MainActivity, DetailUserActivity::class.java)
-                moveWithObjectIntent.putExtra(DetailUserActivity.EXTRA_USER, user)
+                moveWithObjectIntent.putExtra(DetailUserActivity.EXTRA_USER, data)
                 startActivity(moveWithObjectIntent)
             }
         })
