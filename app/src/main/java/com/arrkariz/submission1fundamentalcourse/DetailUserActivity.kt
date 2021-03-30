@@ -2,9 +2,7 @@ package com.arrkariz.submission1fundamentalcourse
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.arrkariz.submission1fundamentalcourse.databinding.ActivityDetailUserBinding
-import com.arrkariz.submission1fundamentalcourse.databinding.ActivityMainBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -26,11 +24,11 @@ class DetailUserActivity : AppCompatActivity() {
         val user = intent.getParcelableExtra<Userdata>(EXTRA_USER) as Userdata
 
         Glide.with(this)
-            .load(user.photo)
+            .load(user.avatar_url)
             .apply(RequestOptions().override(350, 550))
             .into(binding.imgItemPhoto)
 
-        binding.tvItemName.text = user.name
+        binding.tvItemName.text = user.login
         binding.tvUsername.text = user.userName
         binding.follower.text = user.follower
         binding.following.text = user.following

@@ -10,9 +10,17 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ListUserAdapter(private val listUser: ArrayList<Userdata>) : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
+
+
+    fun setList(users: ArrayList<Userdata>){
+        listUser.clear()
+        listUser.addAll(users)
+        notifyDataSetChanged()
+    }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
@@ -27,11 +35,11 @@ class ListUserAdapter(private val listUser: ArrayList<Userdata>) : RecyclerView.
         val userData = listUser[position]
 
         Glide.with(holder.itemView.context)
-            .load(userData.photo)
+            .load(userData.avatar_url)
             .apply(RequestOptions().override(55, 55))
             .into(holder.imgPhoto)
 
-        holder.tvName.text = userData.name
+        holder.tvName.text = userData.login
         holder.tvUserName.text = userData.userName
         holder.tvDetail.text = userData.location
 

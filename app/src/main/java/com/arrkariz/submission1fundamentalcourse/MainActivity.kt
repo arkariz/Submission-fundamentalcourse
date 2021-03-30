@@ -5,6 +5,9 @@ import android.content.res.TypedArray
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arrkariz.submission1fundamentalcourse.databinding.ActivityMainBinding
 import java.util.ArrayList
@@ -12,15 +15,8 @@ import java.util.ArrayList
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: UserViewModel
     private val list = ArrayList<Userdata>()
-    private lateinit var dataName: Array<String>
-    private lateinit var dataUsername: Array<String>
-    private lateinit var dataLocation: Array<String>
-    private lateinit var dataCompany: Array<String>
-    private lateinit var dataFollower: Array<String>
-    private lateinit var dataFollowing: Array<String>
-    private lateinit var dataRepository: Array<String>
-    private lateinit var dataPhoto: TypedArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +24,47 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
+
+        binding.btnSearch.setOnClickListener{
+            searchUser()
+        }
+
+        binding.etQuery.setOnKeyListener{v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                searchUser()
+                return@setOnKeyListener true
+            }
+            return@setOnKeyListener false
+        }
+
+        viewModel.getSearchUsers().observe(this, {
+            if (it!=null){
+                list.clear()
+                list.addAll(it)
+                showLoading(false)
+            }
+        })
 
         binding.rvUser.setHasFixedSize(true)
-        prepare()
-        addItem()
         showRecyclerList()
+    }
+
+    private fun searchUser(){
+        binding.apply {
+            val query = etQuery.text.toString()
+            if (query.isEmpty()) return
+            showLoading(true)
+            viewModel.setSearchUser(query)
+        }
+    }
+
+    private fun showLoading(state: Boolean){
+        if (state){
+            binding.progressBar.visibility = View.VISIBLE
+        }else{
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     private fun showRecyclerList() {
@@ -47,33 +79,5 @@ class MainActivity : AppCompatActivity() {
                 startActivity(moveWithObjectIntent)
             }
         })
-    }
-
-    private fun prepare() {
-        dataName = resources.getStringArray(R.array.name)
-        dataUsername = resources.getStringArray(R.array.username)
-        dataLocation = resources.getStringArray(R.array.location)
-        dataPhoto = resources.obtainTypedArray(R.array.avatar)
-        dataFollower = resources.getStringArray(R.array.followers)
-        dataFollowing = resources.getStringArray(R.array.following)
-        dataCompany = resources.getStringArray(R.array.company)
-        dataRepository = resources.getStringArray(R.array.repository)
-    }
-
-    private fun addItem() {
-        for (position in dataName.indices) {
-            val user = Userdata(
-                dataPhoto.getResourceId(position, -1),
-                dataName[position],
-                dataUsername[position],
-                dataLocation[position],
-                dataFollower[position],
-                dataFollowing[position],
-                dataCompany[position],
-                dataRepository[position],
-            )
-            list.add(user)
-
-        }
     }
 }
