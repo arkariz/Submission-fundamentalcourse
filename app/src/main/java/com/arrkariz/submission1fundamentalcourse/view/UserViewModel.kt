@@ -1,9 +1,10 @@
-package com.arrkariz.submission1fundamentalcourse
+package com.arrkariz.submission1fundamentalcourse.view
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.arrkariz.submission1fundamentalcourse.Userdata
 import com.arrkariz.submission1fundamentalcourse.api.RetrofitClient
 import com.arrkariz.submission1fundamentalcourse.model.UserResponse
 import retrofit2.Call

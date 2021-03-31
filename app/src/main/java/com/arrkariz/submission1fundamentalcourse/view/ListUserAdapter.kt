@@ -1,4 +1,4 @@
-package com.arrkariz.submission1fundamentalcourse
+package com.arrkariz.submission1fundamentalcourse.view
 
 
 import androidx.recyclerview.widget.RecyclerView
@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.arrkariz.submission1fundamentalcourse.R
+import com.arrkariz.submission1fundamentalcourse.Userdata
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import java.util.*
 import kotlin.collections.ArrayList
 
-class ListUserAdapter(private val listUser: ArrayList<Userdata>) : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
+class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
-
+    private val listUser = ArrayList<Userdata>()
 
     fun setList(users: ArrayList<Userdata>){
         listUser.clear()
@@ -37,11 +39,10 @@ class ListUserAdapter(private val listUser: ArrayList<Userdata>) : RecyclerView.
         Glide.with(holder.itemView.context)
             .load(userData.avatar_url)
             .apply(RequestOptions().override(55, 55))
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.imgPhoto)
 
         holder.tvName.text = userData.login
-        holder.tvUserName.text = userData.userName
-        holder.tvDetail.text = userData.location
 
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
     }
@@ -55,8 +56,6 @@ class ListUserAdapter(private val listUser: ArrayList<Userdata>) : RecyclerView.
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
         var tvName: TextView = itemView.findViewById(R.id.tv_item_name)
-        var tvUserName: TextView = itemView.findViewById(R.id.tv_username)
-        var tvDetail: TextView = itemView.findViewById(R.id.tv_item_loc)
 
     }
 

@@ -1,14 +1,15 @@
-package com.arrkariz.submission1fundamentalcourse
+package com.arrkariz.submission1fundamentalcourse.view
 
 import android.content.Intent
-import android.content.res.TypedArray
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.arrkariz.submission1fundamentalcourse.view.detail.DetailUserActivity
+import com.arrkariz.submission1fundamentalcourse.R
+import com.arrkariz.submission1fundamentalcourse.Userdata
 import com.arrkariz.submission1fundamentalcourse.databinding.ActivityMainBinding
 import java.util.ArrayList
 
@@ -16,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: UserViewModel
-    private val list = ArrayList<Userdata>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,26 +25,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
-
-        binding.btnSearch.setOnClickListener{
-            searchUser()
-        }
-
-        binding.etQuery.setOnKeyListener{v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                searchUser()
-                return@setOnKeyListener true
-            }
-            return@setOnKeyListener false
-        }
-
-        viewModel.getSearchUsers().observe(this, {
-            if (it!=null){
-                list.clear()
-                list.addAll(it)
-                showLoading(false)
-            }
-        })
 
         binding.rvUser.setHasFixedSize(true)
         showRecyclerList()
@@ -69,13 +49,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRecyclerList() {
         binding.rvUser.layoutManager = LinearLayoutManager(this)
-        val listUserAdapter = ListUserAdapter(list)
+        val listUserAdapter = ListUserAdapter()
+        listUserAdapter.notifyDataSetChanged()
         binding.rvUser.adapter = listUserAdapter
+        binding.btnSearch.setOnClickListener{
+            searchUser()
+        }
+
+        binding.etQuery.setOnKeyListener{_, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                searchUser()
+                return@setOnKeyListener true
+            }
+            return@setOnKeyListener false
+        }
+
+        viewModel.getSearchUsers().observe(this, {
+            if (it!=null){
+                listUserAdapter.setList(it)
+                showLoading(false)
+            }
+        })
 
         listUserAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Userdata) {
                 val moveWithObjectIntent = Intent(this@MainActivity, DetailUserActivity::class.java)
-                moveWithObjectIntent.putExtra(DetailUserActivity.EXTRA_USER, data)
+                moveWithObjectIntent.putExtra(DetailUserActivity.EXTRA_USER, data.login)
                 startActivity(moveWithObjectIntent)
             }
         })

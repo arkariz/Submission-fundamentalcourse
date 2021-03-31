@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import com.arrkariz.submission1fundamentalcourse.view.MainActivity
 
 @Suppress("DEPRECATION")
 class SplashScreenFragment : AppCompatActivity() {
