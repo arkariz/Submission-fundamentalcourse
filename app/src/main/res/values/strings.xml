@@ -1,15 +1,13 @@
 <resources>
     <string name="name">Name</string>
     <string name="username">Username</string>
-    <string name="location">Location</string>
     <string name="app_name">Github User</string>
-    <string name="company">Company</string>
     <string name="follower">Follower</string>
     <string name="following">Following</string>
-    <string name="repository">Repository</string>
     <string name="search">Search</string>
     <string name="tab_1">Followers</string>
     <string name="tab_2">Following</string>
+    <string name="change_language_settings">Change Language Settings</string>
 
 </resources>
 

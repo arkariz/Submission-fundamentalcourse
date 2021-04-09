@@ -3,7 +3,10 @@ package com.arrkariz.submission1fundamentalcourse.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,17 +20,45 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: UserViewModel
+    private lateinit var adapter: ListUserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
 
-        binding.rvUser.setHasFixedSize(true)
-        showRecyclerList()
+        binding.rvUser.layoutManager = LinearLayoutManager(this)
+        adapter = ListUserAdapter()
+        adapter.notifyDataSetChanged()
+        binding.rvUser.adapter = adapter
+        binding.btnSearch.setOnClickListener{
+            searchUser()
+        }
+
+        binding.etQuery.setOnKeyListener{_, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                searchUser()
+                return@setOnKeyListener true
+            }
+            return@setOnKeyListener false
+        }
+
+        viewModel.getSearchUsers().observe(this, {
+            if (it!=null){
+                adapter.setList(it)
+                showLoading(false)
+            }
+        })
+
+        adapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Userdata) {
+                val moveWithObjectIntent = Intent(this@MainActivity, DetailUserActivity::class.java)
+                moveWithObjectIntent.putExtra(DetailUserActivity.EXTRA_USER, data.login)
+                startActivity(moveWithObjectIntent)
+            }
+        })
     }
 
     private fun searchUser(){
@@ -47,36 +78,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showRecyclerList() {
-        binding.rvUser.layoutManager = LinearLayoutManager(this)
-        val listUserAdapter = ListUserAdapter()
-        listUserAdapter.notifyDataSetChanged()
-        binding.rvUser.adapter = listUserAdapter
-        binding.btnSearch.setOnClickListener{
-            searchUser()
-        }
-
-        binding.etQuery.setOnKeyListener{_, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                searchUser()
-                return@setOnKeyListener true
-            }
-            return@setOnKeyListener false
-        }
-
-        viewModel.getSearchUsers().observe(this, {
-            if (it!=null){
-                listUserAdapter.setList(it)
-                showLoading(false)
-            }
-        })
-
-        listUserAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: Userdata) {
-                val moveWithObjectIntent = Intent(this@MainActivity, DetailUserActivity::class.java)
-                moveWithObjectIntent.putExtra(DetailUserActivity.EXTRA_USER, data.login)
-                startActivity(moveWithObjectIntent)
-            }
-        })
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_change_settings) {
+            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            startActivity(mIntent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }

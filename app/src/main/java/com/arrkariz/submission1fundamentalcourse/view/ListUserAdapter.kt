@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.arrkariz.submission1fundamentalcourse.R
 import com.arrkariz.submission1fundamentalcourse.Userdata
+import com.arrkariz.submission1fundamentalcourse.databinding.ItemRowUserBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
@@ -29,22 +30,12 @@ class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row_user, viewGroup, false)
+        val view = ItemRowUserBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val userData = listUser[position]
-
-        Glide.with(holder.itemView.context)
-            .load(userData.avatar_url)
-            .apply(RequestOptions().override(55, 55))
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(holder.imgPhoto)
-
-        holder.tvName.text = userData.login
-
-        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
+        holder.bind(listUser[position])
     }
 
 
@@ -53,9 +44,20 @@ class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     }
 
 
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
-        var tvName: TextView = itemView.findViewById(R.id.tv_item_name)
+    inner class ListViewHolder(private val binding: ItemRowUserBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(user: Userdata){
+            binding.apply {
+                Glide.with(itemView)
+                        .load(user.avatar_url)
+                        .apply(RequestOptions().override(55, 55))
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(imgItemPhoto)
+
+                tvItemName.text = user.login
+
+                itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[adapterPosition]) }
+            }
+        }
 
     }
 

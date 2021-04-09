@@ -26,12 +26,14 @@ class DetailUserActivity : AppCompatActivity() {
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val user = intent.getStringExtra(EXTRA_USER)
+        val username = intent.getStringExtra(EXTRA_USER)
+        val bundle = Bundle()
+        bundle.putString(EXTRA_USER, username)
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailUserViewModel::class.java)
-        viewModel.setUserDetail(user.toString())
+        viewModel.setUserDetail(username.toString())
         viewModel.getUserDetail().observe(this, {
-            if (it != null){
+            if (it != null) {
                 binding.apply {
                     Glide.with(this@DetailUserActivity)
                             .load(it.avatar_url)
@@ -40,15 +42,15 @@ class DetailUserActivity : AppCompatActivity() {
                             .into(imgItemPhoto)
 
 
-                tvItemName.text = it.name
-                tvUsername.text = it.login
-                follower.text = "${it.followers} Followers"
-                following.text = "${it.following} Following"
+                    tvItemName.text = it.name
+                    tvUsername.text = it.login
+                    follower.text = "${it.followers}"
+                    following.text = "${it.following}"
                 }
             }
         })
 
-        val sectionPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
+        val sectionPagerAdapter = SectionPagerAdapter(this, supportFragmentManager, bundle)
         binding.apply {
             viewPager.adapter = sectionPagerAdapter
             tabs.setupWithViewPager(viewPager)

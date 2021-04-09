@@ -11,25 +11,25 @@ import retrofit2.http.Query
 
 interface Api {
     @GET("search/users")
-    @Headers("Authorization: token 621756eba91dc9e746d731c9a573614f2fbf4df7")
+    @Headers("Authorization: token 7e76fc4f93fe8de29e777f9ce7b2498c88dec7f3")
     fun getSearchUsers(
         @Query("q") query: String
     ): retrofit2.Call<UserResponse>
 
     @GET("users/{username}")
-    @Headers("Authorization: token 621756eba91dc9e746d731c9a573614f2fbf4df7")
+    @Headers("Authorization: token 7e76fc4f93fe8de29e777f9ce7b2498c88dec7f3")
     fun getUserDetail(
             @Path("username") username: String
     ): Call<DetailUserResponse>
 
-    @GET("user/{username}/followers")
-    @Headers("Authorization: token 621756eba91dc9e746d731c9a573614f2fbf4df7")
+    @GET("users/{username}/followers")
+    @Headers("Authorization: token 7e76fc4f93fe8de29e777f9ce7b2498c88dec7f3")
     fun getFollowers(
             @Path("username") username: String
     ): Call<ArrayList<Userdata>>
 
-    @GET("user/{username}/following")
-    @Headers("Authorization: token 621756eba91dc9e746d731c9a573614f2fbf4df7")
+    @GET("users/{username}/following")
+    @Headers("Authorization: token 7e76fc4f93fe8de29e777f9ce7b2498c88dec7f3")
     fun getFollowing(
             @Path("username") username: String
     ): Call<ArrayList<Userdata>>
