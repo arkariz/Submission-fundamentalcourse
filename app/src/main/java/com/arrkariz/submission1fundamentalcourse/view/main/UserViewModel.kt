@@ -1,4 +1,4 @@
-package com.arrkariz.submission1fundamentalcourse.view
+package com.arrkariz.submission1fundamentalcourse.view.main
 
 import android.util.Log
 import androidx.lifecycle.LiveData

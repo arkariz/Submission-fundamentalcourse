@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arrkariz.submission1fundamentalcourse.R
 import com.arrkariz.submission1fundamentalcourse.databinding.FragmentFollowBinding
-import com.arrkariz.submission1fundamentalcourse.view.ListUserAdapter
+import com.arrkariz.submission1fundamentalcourse.view.main.ListUserAdapter
 
 class FollowersFragment: Fragment(R.layout.fragment_follow) {
     private var _binding: FragmentFollowBinding? = null

@@ -1,4 +1,4 @@
-package com.arrkariz.submission1fundamentalcourse.view
+package com.arrkariz.submission1fundamentalcourse.view.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +14,8 @@ import com.arrkariz.submission1fundamentalcourse.view.detail.DetailUserActivity
 import com.arrkariz.submission1fundamentalcourse.R
 import com.arrkariz.submission1fundamentalcourse.Userdata
 import com.arrkariz.submission1fundamentalcourse.databinding.ActivityMainBinding
-import java.util.ArrayList
+import com.arrkariz.submission1fundamentalcourse.view.favorite.FavoriteActivity
+import com.arrkariz.submission1fundamentalcourse.view.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            UserViewModel::class.java)
 
         binding.rvUser.layoutManager = LinearLayoutManager(this)
         adapter = ListUserAdapter()
@@ -56,6 +58,8 @@ class MainActivity : AppCompatActivity() {
             override fun onItemClicked(data: Userdata) {
                 val moveWithObjectIntent = Intent(this@MainActivity, DetailUserActivity::class.java)
                 moveWithObjectIntent.putExtra(DetailUserActivity.EXTRA_USER, data.login)
+                moveWithObjectIntent.putExtra(DetailUserActivity.EXTRA_ID, data.id)
+                moveWithObjectIntent.putExtra(DetailUserActivity.EXTRA_AVATAR, data.avatar_url)
                 startActivity(moveWithObjectIntent)
             }
         })
@@ -83,9 +87,24 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_change_settings) {
-            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(mIntent)
+        when(item.itemId){
+            R.id.fav_menu -> {
+                Intent(this, FavoriteActivity::class.java).also{
+                    startActivity(it)
+                }
+            }
+
+            R.id.action_change_settings -> {
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+
+                startActivity(mIntent)
+            }
+
+            R.id.settings_menu -> {
+                Intent(this, SettingsActivity::class.java).also{
+                    startActivity(it)
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }

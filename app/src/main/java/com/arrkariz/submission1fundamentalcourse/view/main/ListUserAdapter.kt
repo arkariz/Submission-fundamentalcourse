@@ -1,13 +1,9 @@
-package com.arrkariz.submission1fundamentalcourse.view
+package com.arrkariz.submission1fundamentalcourse.view.main
 
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import com.arrkariz.submission1fundamentalcourse.R
 import com.arrkariz.submission1fundamentalcourse.Userdata
 import com.arrkariz.submission1fundamentalcourse.databinding.ItemRowUserBinding
 import com.bumptech.glide.Glide
