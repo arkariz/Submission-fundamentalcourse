@@ -1,5 +1,6 @@
 package com.arrkariz.submission1fundamentalcourse.data.local
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -18,4 +19,7 @@ interface FavoriteUserDao {
 
     @Query("DELETE FROM favorite_user WHERE favorite_user.id = :id")
     suspend fun removeFromFavorite(id: Int): Int
+
+    @Query("SELECT * FROM favorite_user")
+    fun getAll(): Cursor
 }

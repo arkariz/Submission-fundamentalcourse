@@ -1,4 +1,4 @@
-package com.arrkariz.submission1fundamentalcourse.view.settings
+package com.arrkariz.submission1fundamentalcourse.view.reminder
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,7 +11,7 @@ import com.arrkariz.submission1fundamentalcourse.receiver.AlarmReceiver
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SettingsActivity : AppCompatActivity(), View.OnClickListener,TimePickerFragment.DialogTimeListener {
+class ReminderActivity : AppCompatActivity(), View.OnClickListener,TimePickerFragment.DialogTimeListener {
     private lateinit var binding: ActivitySettingsBinding
     private lateinit var reminder: Reminder
     private lateinit var alarmReceiver: AlarmReceiver

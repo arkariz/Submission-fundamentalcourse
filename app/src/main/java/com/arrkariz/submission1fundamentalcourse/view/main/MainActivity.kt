@@ -15,7 +15,7 @@ import com.arrkariz.submission1fundamentalcourse.R
 import com.arrkariz.submission1fundamentalcourse.Userdata
 import com.arrkariz.submission1fundamentalcourse.databinding.ActivityMainBinding
 import com.arrkariz.submission1fundamentalcourse.view.favorite.FavoriteActivity
-import com.arrkariz.submission1fundamentalcourse.view.settings.SettingsActivity
+import com.arrkariz.submission1fundamentalcourse.view.reminder.ReminderActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.settings_menu -> {
-                Intent(this, SettingsActivity::class.java).also{
+                Intent(this, ReminderActivity::class.java).also{
                     startActivity(it)
                 }
             }

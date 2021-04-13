@@ -1,4 +1,4 @@
-package com.arrkariz.submission1fundamentalcourse.view.settings
+package com.arrkariz.submission1fundamentalcourse.view.reminder
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
