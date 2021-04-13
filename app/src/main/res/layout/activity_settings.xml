@@ -7,6 +7,27 @@
     android:orientation="vertical"
     tools:context=".view.settings.SettingsActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/btn_repeating_time"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_baseline_access_time_24" />
+        <TextView
+            android:id="@+id/tv_repeating_time"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            android:layout_height="wrap_content"
+            android:text="@string/waktu_alarm" />
+    </LinearLayout>
+
     <Switch
         android:id="@+id/switch_one"
         android:layout_width="match_parent"

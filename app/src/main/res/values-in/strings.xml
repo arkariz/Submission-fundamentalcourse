@@ -8,6 +8,14 @@
     <string name="tab_1">Pengikut</string>
     <string name="tab_2">Mengikuti</string>
     <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="settings">Pengaturan</string>
+    <string name="favorite">Favorite</string>
+    <string name="waktu_alarm">Atur Waktu Alarm</string>
+    <string name="message">"Waktunya untuk mencari relasi lagi!"</string>
+    <string name="alarm_set">Alarm Berulang diset</string>
+    <string name="alarm_cancel">Alarm Berulang dibatalkan</string>
+    <string name="alarm">Alarm</string>
 
 </resources>
 

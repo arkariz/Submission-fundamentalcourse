@@ -11,6 +11,12 @@
     <string name="set_reminder">Set Reminder</string>
     <string name="settings">Settings</string>
     <string name="favorite">Favorite</string>
+    <string name="waktu_alarm">Set Alarm Time</string>
+    <string name="alarm_set">Repeating Alarm Set</string>
+    <string name="alarm_cancel">Repeating Alarm Cancel</string>
+    <string name="message">"It's Time To Look More Relations!"</string>
+
+    <string name="alarm">Alarm</string>
 
 </resources>
 
